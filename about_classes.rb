@@ -185,7 +185,7 @@ class AboutClasses < Neo::Koan
     #http://stackoverflow.com/questions/2625667/why-do-this-ruby-object-have-two-to-s-and-inspect-methods-that-seems-do-the-same
 
     assert_equal "STRING", "STRING".to_s #make it a string, no matter what, even if it's an array.
-    assert_equal "\"STRING\"", "STRING".inspect
+    assert_equal "\"STRING\"", "STRING".inspect #this is interesting...??
     #https://gist.github.com/kinopyo/5682347
   end
 end
