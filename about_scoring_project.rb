@@ -29,9 +29,113 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 #
 # Your goal is to write the score method.
 
-def score(dice)
-  # You need to write this method
+SCORES_FOR_DICE_NUMBERS = [0, 100, 0, 0, 0, 50, 0] #why the array name must be in uppercase?
+# WRONG METHOD #
+#def score(dice)
+  # dice.sort.each do |num|
+  # if dice.count[num] == 3 && num != 1
+  #   score1 = num * 100
+  # elsif dice.count[(1)] == 3
+  #   score2 = 1000
+  # elsif time == dice.count[(5)] 
+  #   score3 = 50 * time
+  # elsif time == dice.count[(1)] 
+  #   score4 = 1 * time
+  # else
+  #   score5 = 0
+  # return score1 + score2 + score3 + score4
+  # end
+
+# CORRECT FIRIST METHOD #
+# def score(dice)
+#   score = 0
+#   (1..6).each do |number|
+#     roll_count = dice.count {|dice| dice == number} 
+#     if roll_count >= 3
+#       score += number == 1 ? 1000: number * 100
+#       roll_count -= 3
+#     end
+#     score += roll_count * SCORES_FOR_DICE_NUMBERS[number] 
+#   end
+#   score   
+# end
+
+# CORRECT SECOND METHOD #
+def score(dice) #dice is an array of 6 numbers
+  result = 0
+  counts = Hash.new(0)
+  
+  dice.each do |value|
+    counts[value] += 1 # counts is a hash, with 
+  end
+  
+  counts.each do |item, numFound|
+    if item != 1 && numFound >= 3 then
+      result += item * 100
+      numFound -= 3
+    end
+    
+    if item == 1 && numFound >= 3 then
+      result += 1000
+      numFound -= 3
+    end
+    
+    if item == 1 && numFound <=2 then
+      result += numFound * 100
+    end
+    
+    if item == 5 && numFound < 3 then
+      result += numFound * 50
+    end
+  end
+  result
 end
+# def score(dice)
+#   result = 0
+  
+#   # First idea: loop through all values and add to hash but only 
+#   # once per unique value and have a counter for how many times 
+#   # value was found
+  
+#   # The param for the new() method call acts as a default value if 
+#   # an accessed key doesn't exist. Awesome! Saved me from writing a 
+#   # bloated each statement with an if/elsif to handle existence!
+#   counts = Hash.new(0) 
+  
+#   dice.each do |value|
+#     counts[value] += 1
+#   end
+  
+#   counts.each do |item,numFound|
+#     # 1,1,1 = 1000 points
+#     if item == 1 && numFound >= 3 then
+#       result += 1000
+#       numFound -= 3
+#     end
+    
+#     # any number other than 1, found 3 times is that number times 
+#     # 100.. so 5,5,5 = 500 points, 3,3,3 = 300 points, etc.
+#     if item != 1 && numFound >= 3 then
+#       result += item * 100
+#       numFound -= 3
+#     end
+    
+#     # 1 (not part of set) = 100 points for each found
+#     if item == 1 && numFound <= 2 then 
+#       result += 100 * numFound
+#     end
+    
+#     # 5 (not part of set) = 50 points for each found
+#     if item == 5 && numFound <=2 then
+#       result += 50 * numFound
+#     end
+#   end
+  
+#   result
+# end    
+    
+    
+
 
 class AboutScoringProject < Neo::Koan
   def test_score_of_an_empty_list_is_zero

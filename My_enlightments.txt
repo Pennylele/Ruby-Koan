@@ -1,0 +1,4 @@
+1. Why does every class need a def initialize method? 
+http://www-rohan.sdsu.edu/doc/ruby/chp_04/classes.html
+The initialize method is what actually constructs the data structure. Every class must contain an initialize method.
+

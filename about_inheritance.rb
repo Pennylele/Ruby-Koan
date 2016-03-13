@@ -4,7 +4,7 @@ class AboutInheritance < Neo::Koan
   class Dog
     attr_reader :name
 
-    def initialize(name)
+    def initialize(name) #every class needs a initialize method to set up the data structure.
       @name = name
     end
 
@@ -24,34 +24,34 @@ class AboutInheritance < Neo::Koan
   end
 
   def test_subclasses_have_the_parent_as_an_ancestor
-    assert_equal __, Chihuahua.ancestors.include?(Dog)
+    assert_equal true, Chihuahua.ancestors.include?(Dog) #Chihuahua's ancestors includes [Chihuahua, Dog, Object, Kernel, BasicObject] 
   end
 
   def test_all_classes_ultimately_inherit_from_object
-    assert_equal __, Chihuahua.ancestors.include?(Object)
+    assert_equal true, Chihuahua.ancestors.include?(Object)
   end
 
   def test_subclasses_inherit_behavior_from_parent_class
     chico = Chihuahua.new("Chico")
-    assert_equal __, chico.name
+    assert_equal "Chico", chico.name
   end
 
   def test_subclasses_add_new_behavior
     chico = Chihuahua.new("Chico")
-    assert_equal __, chico.wag
+    assert_equal :happy, chico.wag
 
-    assert_raise(___) do
+    assert_raise(NoMethodError) do
       fido = Dog.new("Fido")
       fido.wag
     end
   end
 
   def test_subclasses_can_modify_existing_behavior
-    chico = Chihuahua.new("Chico")
-    assert_equal __, chico.bark
+    chico = Chihuahua.new("Chico") #why can class Chihuahua take an argument "Chico"? I think it's because class Chihuahua is the ancestor of class Dog.
+    assert_equal "yip", chico.bark
 
     fido = Dog.new("Fido")
-    assert_equal __, fido.bark
+    assert_equal "WOOF", fido.bark
   end
 
   # ------------------------------------------------------------------
@@ -64,7 +64,7 @@ class AboutInheritance < Neo::Koan
 
   def test_subclasses_can_invoke_parent_behavior_via_super
     ralph = BullDog.new("Ralph")
-    assert_equal __, ralph.bark
+    assert_equal "WOOF, GROWL", ralph.bark
   end
 
   # ------------------------------------------------------------------
@@ -77,7 +77,7 @@ class AboutInheritance < Neo::Koan
 
   def test_super_does_not_work_cross_method
     george = GreatDane.new("George")
-    assert_raise(___) do
+    assert_raise(NameError) do
       george.growl
     end
   end
